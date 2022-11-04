@@ -1,0 +1,55 @@
+Developer:
+id - int (PK)
+name - varchar(25)
+password_hash - varchar(128)
+email - varchar(25)
+scaleJava - varchar(25)
+scalePython - varchar(25)
+scaleC - varchar(25)
+scaleGo - varchar(25)
+open_to_contracts - tinyint(1)
+money_made - float
+(Relationships:)
+contracts_applied - secondary table = developer_contract_applied (many to many)
+contracts_denied - secondary table = developer_contract_denied (many to many)
+contracts_accepted - FK = Contract.developer_accepted_id (one to many)
+
+-----------
+
+Company:
+id - int (PK)
+name - varchar(25)
+password_hash - varchar(128)
+industry - varchar(50)
+money_spent - float
+(Relationships:)
+contracts - FK = Contract.company_id (one to many)
+
+-----------
+
+Contract:
+id - int (PK)
+company_name - varchar(25)
+name - varchar(25)
+length - int
+value - float
+description - text
+programming_language - varchar(25)
+location - varchar(10)
+open - tinyint(1)
+date - datetime
+(Relationships:)
+company_id - int - FK = company.id
+developer_accepted_id - int - FK = developer.id
+
+-----------
+
+Secondary Tables:
+
+developer_contract_applied:
+developer_id - int - FK = developer.id
+contract_id - int - FK = contract.id
+
+developer_contract_denied:
+developer_id - int - FK = developer.id
+contract_id - int - FK = contract.id
